@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>My Shopping Example</title>
+</head>
+<body>
+<h2 style="text-align: center;color: cornflowerblue; background-color: darkkhaki;">Welcome 2 My Shopping Page!!</h2>
+
+    <div class="col-md-4" style="padding-left: 20%;">
+       Name :<input type="text"  required id="name"/> <br><br>
+        Password:<input type="password" required  id="num" ><br><br>
+     <button  onclick="clicking()">Login!</button>
+     <h4>New User   <a href="#"> Register here!</a></h4>
+
+
+    </div> 
+    <div id="myData" style="color: aqua;background-color: rgb(178, 140, 214);"></div>
+   
+    <script>
+       
+function clicking(){
+    fetch('person.json')
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                appendData(data);
+            })
+            .catch(function (err) {
+                console.log('error: ' + err);
+            });
+            var username=document.getElementById("name").value; 
+            console.log(username)
+}
+
+
+        function appendData(data) {
+            var username=document.getElementById("name").value ; 
+            var mainContainer = document.getElementById("myData");
+            for (var i = 0; i < data.length; i++) {
+                if(data[i].firstName === username){
+               var div = document.createElement("div");
+               div.innerHTML = 'Hello !  ' + data[i].firstName + ' ' + data[i].lastName + ' You are Successfully logged IN';
+                mainContainer.appendChild(div);
+            }else{
+                window.reset();
+            }
+            }
+        }
+    </script>
+</body>
+</html>
